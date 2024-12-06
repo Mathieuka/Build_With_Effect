@@ -6,15 +6,12 @@ describe("CreateReelUseCase", () => {
   test("Create a new reel", () => {
     const createReelUseCase = new CreateReelUseCase();
     const program = createReelUseCase.execute({
-      coverage: 10,
+      coverage: 100,
       click: 10,
     });
 
-    const result = Effect.runSync(program);
+    const reel = Effect.runSync(program);
 
-    expect(result).toEqual({
-      coverage: 10,
-      click: 10,
-    });
+    expect(reel.calculateRatio()).toEqual(10);
   });
 });

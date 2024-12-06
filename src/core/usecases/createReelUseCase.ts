@@ -1,13 +1,9 @@
 import { Effect } from "effect";
+import Reel from "../domain";
 
 export interface UseCase<Request, Response, Error> {
   execute(request?: Request): Effect.Effect<Response, Error>;
 }
-
-type Reel = {
-  coverage: number;
-  click: number;
-};
 
 type CreateReelRequest = {
   coverage: number;
@@ -16,10 +12,9 @@ type CreateReelRequest = {
 
 class CreateReelUseCase implements UseCase<CreateReelRequest, Reel, never> {
   execute(request: CreateReelRequest): Effect.Effect<Reel> {
-    return Effect.succeed({
-      click: request.click,
-      coverage: request.coverage,
-    });
+    const reel = new Reel(request.coverage, request.click);
+
+    return Effect.succeed(reel);
   }
 }
 
