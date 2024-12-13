@@ -18,5 +18,5 @@ This live coding session will focus on analyzing two key metrics to determine th
 
 ## Objectives
 
--  Develop a function to compute the engagement ratio from given Coverage and Clicks data.
+-  Develop an apps to compute the engagement ratio from given Coverage and Clicks data.
 -  Implement a classification system to categorize Reels based on their engagement ratio.
