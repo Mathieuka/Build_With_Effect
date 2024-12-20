@@ -5,10 +5,12 @@ interface IReel {
 class Reel implements IReel {
   private coverage: number;
   private click: number;
+  private description: string;
 
-  constructor(coverage: number, click: number) {
+  constructor(coverage: number, click: number, description: string) {
     this.coverage = coverage;
     this.click = click;
+    this.description = description;
   }
 
   calculateRatio(): number {
