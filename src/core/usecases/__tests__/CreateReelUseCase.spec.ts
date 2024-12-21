@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import CreateReelUseCase from "../createReelUseCase";
-import { Effect } from "effect";
+import CreateReelUseCase, {
+  MissingDescriptionError,
+} from "../createReelUseCase";
+import { Effect, Exit } from "effect";
 import ReelRepository from "../../domain/repositories/ReelRepository";
 import InMemoryReelRepository from "../../../infra/InMemoryReelRepository";
 
@@ -39,8 +41,8 @@ describe("CreateReelUseCase", () => {
       description: "",
     });
 
-    expect(() => Effect.runSync(program)).toThrowError(
-      "Can't create a reel without description",
-    );
+    const exit = Effect.runSyncExit(program);
+
+    expect(exit).toEqual(Exit.fail(new MissingDescriptionError()));
   });
 });

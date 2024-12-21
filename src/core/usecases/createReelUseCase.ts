@@ -6,19 +6,25 @@ export interface UseCase<Request, Response, Error> {
   execute(request?: Request): Effect.Effect<Response, Error>;
 }
 
+export class MissingDescriptionError {
+  readonly _tag = "MissingDescriptionError";
+}
+
 type CreateReelRequest = {
   coverage: number;
   click: number;
   description: string;
 };
 
-class CreateReelUseCase implements UseCase<CreateReelRequest, number, string> {
+class CreateReelUseCase
+  implements UseCase<CreateReelRequest, number, MissingDescriptionError>
+{
   constructor(private reelRepository: ReelRepository) {}
 
   execute(request: CreateReelRequest) {
     return Effect.gen(this, function* () {
       if (!request.description.length) {
-        yield* Effect.fail("Can't create a reel without description");
+        yield* Effect.fail(new MissingDescriptionError());
       }
 
       const reel = new Reel(
